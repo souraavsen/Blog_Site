@@ -1,0 +1,34 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+    <button  > Back</button>
+
+    <meta charset="UTF-8">
+    <title>Articles</title>
+     <link rel="stylesheet"  href= "{% static 'styles.css' %}">
+</head>
+<body bgcolor="Daffodil">
+    <div class="wrapper">
+        <h1><a href="{% url 'list' %}"><img src="{% static 'arlogo.png' %}"/></a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated%}
+                <li>
+                    <form class="logout-link" action="/accounts/logout/" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+                <li><a href="{% url 'create' %}" class="highlight">Create New Articles</a> </li>
+                {% else %}
+                <li><a href="{% url 'accounts:login' %}" class="highlight">Login</a></li>
+                <li><a href="{% url 'accounts:signup' %}">SignUp</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {%block content %}
+        {%endblock%}
+    </div>
+ </body>
+</html>
